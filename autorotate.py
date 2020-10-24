@@ -30,7 +30,7 @@ def autorotate(path):
     try:
         exif = image._getexif()
     except AttributeError as e:
-        print "Could not get exif - Bad image!"
+        print("Could not get exif - Bad image!")
         return False
 
     (width, height) = image.size
@@ -79,12 +79,12 @@ def autoresize(path, new_width, new_height):
 def process_directory(path, recursive=False, new_width=None, new_height=None):
     """ This function processes all elements from a directory """
 
-    print "\n==new_width: %s\n" % new_width
-    print "\n==new_height: %s\n" % new_height
+    print("\n==new_width: %s\n" % new_width)
+    print("\n==new_height: %s\n" % new_height)
 
 
     if not os.path.isdir(path):
-        print path, 'is not a directory'
+        print(path, 'is not a directory')
 
     else:
         for elt in os.listdir(path):
@@ -94,13 +94,13 @@ def process_directory(path, recursive=False, new_width=None, new_height=None):
 
             elif os.path.isfile(elt_path):
                 if re.match(picture_re, elt_path):
-                    print "=== Processing %s ===" % (elt)
+                    print("=== Processing %s ===" % (elt))
                     for i in range(2): # for some reason, I have to do it twice
                         if autorotate(elt_path):
-                            print 'autorotate: %s/%s' % (path, elt)
+                            print('autorotate: %s/%s' % (path, elt))
                     if new_width and new_height:
                         if autoresize(elt_path, new_width, new_height):
-                            print 'autoresize: %s/%s' % (path, elt)
+                            print('autoresize: %s/%s' % (path, elt))
 
 
 if __name__ == '__main__':
